@@ -71,6 +71,9 @@ public class ProcessGeneration {
      */
     private boolean generateDistSourceManifest;
 
+    @Nullable
+    private String defaultLegacyMcpMappings;
+
     /**
      * For (Neo)Forge 1.20.1 and below, we have to remap method and field names from
      * SRG to official names for development.
@@ -105,6 +108,10 @@ public class ProcessGeneration {
         result.generateDistSourceManifest = isGreaterThanOrEqualTo(releaseVersion, MC_1_21_6);
 
         result.supportsSideAnnotationStripping = isLessThanOrEqualTo(releaseVersion, MC_1_20_1);
+
+        if ("1.12.2".equals(minecraftVersion)) {
+            result.defaultLegacyMcpMappings = "de.oceanlabs.mcp:mcp_stable:39-1.12@zip";
+        }
 
         return result;
     }
@@ -143,6 +150,11 @@ public class ProcessGeneration {
      */
     public boolean generateDistSourceManifest() {
         return generateDistSourceManifest;
+    }
+
+    @Nullable
+    public String defaultLegacyMcpMappings() {
+        return defaultLegacyMcpMappings;
     }
 
     /**

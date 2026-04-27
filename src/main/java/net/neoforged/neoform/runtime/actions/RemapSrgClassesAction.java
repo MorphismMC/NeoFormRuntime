@@ -14,10 +14,12 @@ public class RemapSrgClassesAction extends ExternalJavaToolAction {
 
     @Override
     public void run(ProcessingEnvironment environment) throws IOException, InterruptedException {
-        var srgToOfficial = RemapSrgSourcesAction.buildSrgToOfficialMappings(environment);
-
-        var mappingsFile = environment.getWorkspace().resolve("mappings.tsrg2");
-        srgToOfficial.write(mappingsFile, IMappingFile.Format.TSRG2, false);
+        var mappingsFile = environment.getInputPath("mappings");
+        if (mappingsFile == null) {
+            var srgToOfficial = RemapSrgSourcesAction.buildSrgToNamedMappings(environment);
+            mappingsFile = environment.getWorkspace().resolve("mappings.tsrg2");
+            srgToOfficial.write(mappingsFile, IMappingFile.Format.TSRG2, false);
+        }
 
         setArgs(List.of(
                 "--input", "{input}",
