@@ -56,6 +56,7 @@ public class CreateMcpMappingsAction extends BuiltInAction {
         var srgToMcp = builder.build().getMap("srg", "mcp");
         srgToMcp.write(environment.getOutputPath("srgToMcp"), IMappingFile.Format.SRG, false);
         srgToMcp.reverse().write(environment.getOutputPath("mcpToSrg"), IMappingFile.Format.SRG, false);
+        obfToSrg.write(environment.getOutputPath("notchToSrg"), IMappingFile.Format.SRG, false);
         Files.copy(mcpMappingsPath, environment.getOutputPath("csvMappings"), StandardCopyOption.REPLACE_EXISTING);
     }
 

@@ -68,6 +68,11 @@ public final class ResultIds {
      */
     public static final String CSV_MAPPING = "csvMapping";
     /**
+     * A SRG mapping file to map from notch (Mojang obfuscated) names to intermediary (SRG) names.
+     * Only available in legacy MCP processes. Used for ForgeGradle-2 cache compatibility.
+     */
+    public static final String NOTCH_TO_INTERMEDIARY_MAPPING = "notchToIntermediaryMapping";
+    /**
      * Only available if the process defines a step to strip the non-class-files out of the client jar file.
      * This result is the zip file containing all of those stripped resources (any non .class file).
      */
