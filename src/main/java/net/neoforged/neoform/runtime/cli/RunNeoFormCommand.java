@@ -369,20 +369,6 @@ public class RunNeoFormCommand extends NeoFormEngineCommand {
         // This is a new result here
         var binaryWithNeoForgeOutput = createBinaryWithNeoForge(graph, binaryPatchOutput, neoforgeClassesZip);
 
-        // The universal NeoForge/Forge jar ships classes compiled against notch (obfuscated) Minecraft, so the
-        // references injected above are still in notch names. Rename them notch->SRG so the subsequent SRG->named
-        // remap picks them up. The Minecraft classes were already renamed notch->SRG above, and the notch->SRG map
-        // has no SRG keys, so this pass only touches the injected Forge classes.
-        if (neoforgeConfig.notchObf()) {
-            binaryWithNeoForgeOutput = createExternalJavaToolNode(
-                    graph,
-                    "binaryWithNeoForgeRename",
-                    "rename",
-                    binaryWithNeoForgeOutput,
-                    "Notch references in the injected Forge classes renamed to SRG"
-            );
-        }
-
         if (engine.getProcessGeneration().sourcesUseIntermediaryNames()) {
             // Minecraft and NeoForge classes need to be remapped,
             // so we only expose jars that contains both (similar to the standard decomp/recomp pipeline)
